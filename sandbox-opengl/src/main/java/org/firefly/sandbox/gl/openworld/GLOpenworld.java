@@ -1,3 +1,5 @@
+package org.firefly.sandbox.gl.openworld;
+
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -11,7 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class FireFly {
+class GlOpenworld {
 
     // The window handle
     private long window;
@@ -109,7 +111,7 @@ public class FireFly {
     }
 
     public static void main(String[] args) {
-        new FireFly().run();
+        new GlOpenworld().run();
     }
 
 }

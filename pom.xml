@@ -155,6 +155,7 @@
 
     <modules>
         <module>firefly-core</module>
+        <module>sandbox-opengl</module>
     </modules>
 
 </project>
