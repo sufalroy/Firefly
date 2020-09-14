@@ -1,0 +1,7 @@
+# Target
+**/target/
+
+# Intelij files
+.idea/
+
+
