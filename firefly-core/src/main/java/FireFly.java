@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class HelloWorld {
+public class FireFly {
 
     // The window handle
     private long window;
@@ -46,7 +46,7 @@ public class HelloWorld {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
+        window = glfwCreateWindow(1200, 720, "Firefly", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -93,7 +93,7 @@ public class HelloWorld {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -109,7 +109,7 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
-        new HelloWorld().run();
+        new FireFly().run();
     }
 
 }

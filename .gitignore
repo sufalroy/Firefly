@@ -1,7 +1,11 @@
-# Target
-**/target/
-
-# Intelij files
+# IntelliJ
 .idea/
+*.iml
+*.iws
 
-
+# Maven
+/log/
+/bin/
+/target/
+**/target/
+dependency-reduced-pom.xml
