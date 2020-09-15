@@ -1,5 +1,6 @@
 package org.firefly.core.platform;
 
+import org.firefly.core.util.ResourceLoader;
 import org.lwjgl.glfw.GLFWImage;
 
 import java.nio.ByteBuffer;
@@ -31,7 +32,7 @@ public abstract class Window {
     }
 
     public void setIcon(String path){
-       /*
+
         ByteBuffer bufferedImage = ResourceLoader.loadImageToByteBuffer(path);
         GLFWImage image = GLFWImage.malloc();
         image.set(32, 32, bufferedImage);
@@ -39,7 +40,6 @@ public abstract class Window {
         GLFWImage.Buffer images = GLFWImage.malloc(1);
         images.put(0, image);
         glfwSetWindowIcon(getId(), images);
-        */
     }
 
     public void setId(long id) {

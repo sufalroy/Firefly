@@ -30,7 +30,7 @@ public class GLWindow extends Window {
             throw new RuntimeException("Failed to create window");
         }
 
-        setIcon("");
+        setIcon("textures/logo/logo.png");
 
         glfwMakeContextCurrent(getId());
 
