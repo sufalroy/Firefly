@@ -27,7 +27,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!-- class with main method for generating executable jar -->
-                                    <mainClass>org.firefly.sandbox.gl.openworld.GLOpenworld</mainClass>
+                                    <mainClass>org.firefly.sandbox.gl.openworld.OpenWorld</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -49,6 +49,21 @@
             <artifactId>firefly-core</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.firefly.core</groupId>
+            <artifactId>firefly-gl-api</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.firefly.gl</groupId>
+            <artifactId>firefly-gl-deferred</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
