@@ -1,9 +1,12 @@
 package org.firefly.core.util;
 
+import org.firefly.core.context.BaseContext;
 import org.lwjgl.BufferUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.channels.Channels;
@@ -17,6 +20,65 @@ import static org.lwjgl.stb.STBImage.*;
 
 public class ResourceLoader {
 
+    public static String loadShader(String fileName)
+    {
+        InputStream is = ResourceLoader.class.getClassLoader().getResourceAsStream(fileName);
+
+        StringBuilder shaderSource = new StringBuilder();
+        BufferedReader shaderReader = null;
+
+        try
+        {
+            shaderReader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while((line = shaderReader.readLine()) != null)
+            {
+                shaderSource.append(line).append("\n");
+            }
+
+            shaderReader.close();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Unable to load file ["+ fileName +"]!");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return shaderSource.toString();
+    }
+
+    public static String loadShader(String fileName, String lib)
+    {
+        String shadersource = loadShader(fileName);
+
+        InputStream is = ResourceLoader.class.getClassLoader().getResourceAsStream("shader/" + lib);
+        StringBuilder shaderlibSource = new StringBuilder();
+        BufferedReader shaderReader = null;
+
+        try
+        {
+            shaderReader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while((line = shaderReader.readLine()) != null)
+            {
+                shaderlibSource.append(line).append("\n");
+            }
+
+            shaderReader.close();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Unable to load file ["+ fileName +"]!");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        String vlib = shaderlibSource.toString().replaceFirst("#var_shadow_map_resolution", Integer.toString(BaseContext.getConfig().getShadowMapResolution()));
+
+        return shadersource.replaceFirst("#lib.glsl", vlib);
+    }
+
     public static ByteBuffer loadImageToByteBuffer(String file){
         ByteBuffer imageBuffer;
         try {
@@ -25,23 +87,30 @@ public class ResourceLoader {
             throw new RuntimeException(e);
         }
 
-        IntBuffer w = BufferUtils.createIntBuffer(1);
-        IntBuffer h = BufferUtils.createIntBuffer(1);
+        IntBuffer w    = BufferUtils.createIntBuffer(1);
+        IntBuffer h    = BufferUtils.createIntBuffer(1);
         IntBuffer c = BufferUtils.createIntBuffer(1);
 
-        if(!stbi_info_from_memory(imageBuffer, w, h, c)){
+        if (!stbi_info_from_memory(imageBuffer, w, h, c)) {
             throw new RuntimeException("Failed to read image information: " + stbi_failure_reason());
         }
 
+        System.out.println("Image width: " + w.get(0));
+        System.out.println("Image height: " + h.get(0));
+        System.out.println("Image components: " + c.get(0));
+        System.out.println("Image HDR: " + stbi_is_hdr_from_memory(imageBuffer));
+
+
         ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
-        if(image == null){
+        if (image == null) {
             throw new RuntimeException("Failed to load image: " + stbi_failure_reason());
         }
 
         return image;
     }
 
-    private static ByteBuffer ioResourceToByteBuffer(String resource, int bufferSize) throws IOException {
+    public static ByteBuffer ioResourceToByteBuffer(String resource, int bufferSize) throws IOException {
+
         ByteBuffer buffer;
 
         Path path = Paths.get(resource);
@@ -75,4 +144,5 @@ public class ResourceLoader {
         buffer.flip();
         return buffer;
     }
+
 }

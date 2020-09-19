@@ -65,6 +65,28 @@ public class Vec3f {
         return this;
     }
 
+    public Vec3f rotate(float angle, Vec3f axis)
+    {
+        float sinHalfAngle = (float)Math.sin(Math.toRadians(angle / 2));
+        float cosHalfAngle = (float)Math.cos(Math.toRadians(angle / 2));
+
+        float rX = axis.getX() * sinHalfAngle;
+        float rY = axis.getY() * sinHalfAngle;
+        float rZ = axis.getZ() * sinHalfAngle;
+        float rW = cosHalfAngle;
+
+        Vec4f rotation = new Vec4f(rX, rY, rZ, rW);
+        Vec4f conjugate = rotation.conjugate();
+
+        Vec4f w = rotation.mul(this).mul(conjugate);
+
+        X = w.getX();
+        Y = w.getY();
+        Z = w.getZ();
+
+        return this;
+    }
+
     public Vec3f add(Vec3f r)
     {
         return new Vec3f(this.X + r.getX(), this.Y + r.getY(), this.Z + r.getZ());
@@ -150,5 +172,7 @@ public class Vec3f {
     public void setZ(float z) {
         Z = z;
     }
+
+
 
 }

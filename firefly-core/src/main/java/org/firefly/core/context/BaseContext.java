@@ -6,6 +6,7 @@ import org.firefly.core.CoreEngine;
 import org.firefly.core.RenderEngine;
 import org.firefly.core.platform.GLFWInput;
 import org.firefly.core.platform.Window;
+import org.firefly.core.scenegraph.Camera;
 
 public abstract class BaseContext {
 
@@ -13,6 +14,8 @@ public abstract class BaseContext {
     protected static Config config;
     @Getter
     protected static GLFWInput input;
+    @Getter
+    protected static Camera camera;
     @Getter
     protected static Window window;
     @Getter
