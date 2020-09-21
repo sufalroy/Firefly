@@ -25,6 +25,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.firefly.gl</groupId>
+            <artifactId>firefly-gl-components</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 

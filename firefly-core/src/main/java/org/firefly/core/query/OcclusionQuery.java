@@ -1,6 +1,7 @@
 package org.firefly.core.query;
 
 import org.firefly.core.light.Light;
+import org.firefly.core.scenegraph.Renderable;
 
 import java.nio.IntBuffer;
 
@@ -10,7 +11,7 @@ public abstract class OcclusionQuery {
     private IntBuffer buffer;
     private int occlusionFactor;
 
-    public abstract void doQuery(Readable object);
+    public abstract void doQuery(Renderable object);
 
     public abstract void doQuery(Light light);
 
@@ -24,19 +25,19 @@ public abstract class OcclusionQuery {
         this.id = id;
     }
 
-    public IntBuffer getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(IntBuffer buffer) {
-        this.buffer = buffer;
-    }
-
     public int getOcclusionFactor() {
         return occlusionFactor;
     }
 
     public void setOcclusionFactor(int occlusionFactor) {
         this.occlusionFactor = occlusionFactor;
+    }
+
+    public IntBuffer getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(IntBuffer buffer) {
+        this.buffer = buffer;
     }
 }

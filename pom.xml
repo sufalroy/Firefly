@@ -158,6 +158,7 @@
         <module>firefly-gl-api</module>
         <module>sandbox-opengl</module>
         <module>firefly-gl-deferred</module>
+        <module>firefly-gl-components</module>
     </modules>
 
 </project>

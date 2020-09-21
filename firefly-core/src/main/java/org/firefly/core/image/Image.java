@@ -20,7 +20,7 @@ public class Image {
         R8
     }
 
-    public enum SampleFilter{
+    public enum SamplerFilter{
         Nearest,
         Bilinear,
         Trilinear,
