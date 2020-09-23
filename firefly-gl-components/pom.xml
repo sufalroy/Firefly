@@ -23,6 +23,12 @@
             <artifactId>firefly-gl-api</artifactId>
             <version>${firefly.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.firefly.common</groupId>
+            <artifactId>firefly-common-world</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

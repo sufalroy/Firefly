@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glFinish;
 import static org.lwjgl.opengl.GL11.glViewport;
 
+import org.firefly.gl.components.terrain.GLTerrain;
 import org.lwjgl.glfw.GLFW;
 import org.firefly.core.RenderEngine;
 import org.firefly.core.context.BaseContext;
@@ -109,7 +110,6 @@ public class GLDeferredEngine extends RenderEngine{
 		sunlightScattering = new SunLightScattering();
 		lensFlare = new LensFlare();
 		ssao = new SSAO(config.getFrameWidth(), config.getFrameHeight());
-
 		contrastController = new ContrastController();
 		
 		GLContext.getResources().setSceneDepthMap(primarySceneFbo.getAttachmentTexture(Attachment.DEPTH));
@@ -238,6 +238,12 @@ public class GLDeferredEngine extends RenderEngine{
 					secondarySceneFbo.getAttachmentTexture(Attachment.LIGHT_SCATTERING));
 		}
 
+		// update Terrain Quadtree
+		if (camera.isCameraMoved()){
+			if (sceneGraph.hasTerrain()){
+				((GLTerrain) sceneGraph.getTerrain()).getQuadtree().signal();
+			}
+		}
 		
 		GLTexture prePostprocessingScene = transparencySceneRenderList.getObjectList().size() > 0 ?
 				opaqueTransparencyBlending.getBlendedSceneTexture() : deferredLighting.getDeferredLightingSceneTexture();
@@ -499,6 +505,9 @@ public class GLDeferredEngine extends RenderEngine{
 		super.shutdown();
 		
 		instancingObjectHandler.signalAll();
+		if (sceneGraph.hasTerrain()){
+			((GLTerrain) sceneGraph.getTerrain()).getQuadtree().signal();
+		}
 	}
 	
 }
